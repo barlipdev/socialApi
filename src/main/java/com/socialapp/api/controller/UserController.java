@@ -55,4 +55,16 @@ public class UserController {
         return user.getId();
     }
 
+    @DeleteMapping("/users/{id}")
+    public String deleteUser(@PathVariable String id){
+        userService.delete(id);
+        return "Deleted user with id: "+id;
+    }
+
+    @DeleteMapping("/users")
+    public String deleteAll(){
+        userService.deleteAll();
+        return "Deleted all users!";
+    }
+
 }
