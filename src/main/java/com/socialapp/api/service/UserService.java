@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class UserService {
@@ -41,16 +42,28 @@ public class UserService {
 
     public String addFriendToUserById(String id, String idAddedUser){
         User user = userRepository.findById(id).orElseThrow();
+        AtomicBoolean duplicated = new AtomicBoolean(false);
         List<User> userFriendsList;
+
         if(user.getFriendsList()!=null){
             userFriendsList = user.getFriendsList();
-            userFriendsList.add(userRepository.findById(idAddedUser).orElseThrow());
-            user.setFriendsList(userFriendsList);
-            userRepository.save(user);
-            return user.getId();
+            userFriendsList.forEach(friend -> {
+                if (friend.getId().equals(userRepository.findById(idAddedUser).orElseThrow().getId())){
+                    duplicated.set(true);
+                    System.out.println("Test");
+                }
+            });
+            if (!duplicated.get()){
+                userFriendsList.add(userRepository.findById(idAddedUser).orElseThrow());
+                user.setFriendsList(userFriendsList);
+                userRepository.save(user);
+                return user.getId();
+            }else{
+                return "Users exists in user friends list";
+            }
+
         }else {
-            user.setFriendsList(new ArrayList<>());
-            userFriendsList = user.getFriendsList();
+            userFriendsList = new ArrayList<>();
             userFriendsList.add(userRepository.findById(idAddedUser).orElseThrow());
             user.setFriendsList(userFriendsList);
             userRepository.save(user);
@@ -73,5 +86,27 @@ public class UserService {
         userRepository.deleteAll();
     }
 
+    public List<User> findRecentUsers(String id){
+        List<User> userFriendsList = findUserFriendsByUserId(id);
+        List<User> allUsers = userRepository.findAll();
+        List<User> recentUsers = new ArrayList<>();
 
+        if (userFriendsList != null){
+            userFriendsList.forEach(friend -> {
+                allUsers.forEach(user -> {
+                    if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
+                        recentUsers.add(user);
+                    }
+                });
+            });
+            return recentUsers;
+        }else{
+            allUsers.forEach(user -> {
+               if (recentUsers.size() <10 && !id.equals(user.getId())){
+                   recentUsers.add(user);
+               }
+            });
+            return recentUsers;
+        }
+    }
 }

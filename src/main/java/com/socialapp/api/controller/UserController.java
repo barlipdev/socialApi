@@ -28,9 +28,9 @@ public class UserController {
         return userService.insertUser(user);
     }
 
-    @GetMapping("/users/login")
-    public User login(@RequestBody LoginData loginData){
-        return userService.login(loginData.getEmail(),loginData.getPassword());
+    @GetMapping("/users/login/{email}&{password}")
+    public User login(@PathVariable String email, @PathVariable String password){
+        return userService.login(email,password);
     }
 
     @PostMapping("/users/friends/{id}&{idAdded}")
@@ -65,6 +65,11 @@ public class UserController {
     public String deleteAll(){
         userService.deleteAll();
         return "Deleted all users!";
+    }
+
+    @GetMapping("/users/recent/{id}")
+    public List<User> findRecentUsers(@PathVariable String id){
+        return userService.findRecentUsers(id);
     }
 
 }
