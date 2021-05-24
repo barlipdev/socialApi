@@ -23,6 +23,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable String id){
+        return userService.findUserById(id);
+    }
+
     @PostMapping("/users/register")
     public String register(@RequestBody User user){
         return userService.insertUser(user);
