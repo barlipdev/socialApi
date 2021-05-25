@@ -77,4 +77,13 @@ public class UserController {
         return userService.findRecentUsers(id);
     }
 
+    @PostMapping("/users/status")
+    public String changeUserStatus(@RequestParam("id") String id,@RequestParam("status") String status){
+        return userService.changeUserStatus(id,status);
+    }
+
+    @GetMapping("/users/status")
+    public String getUserStatus(@RequestParam("id")String id){
+        return userService.getUserStatus(id);
+    }
 }

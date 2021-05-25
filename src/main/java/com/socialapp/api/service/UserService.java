@@ -109,4 +109,16 @@ public class UserService {
             return recentUsers;
         }
     }
+
+    public String changeUserStatus(String id, String status){
+        User user = userRepository.findById(id).orElseThrow();
+        user.setStatus(status);
+        userRepository.save(user);
+        return status;
+    }
+
+    public String getUserStatus(String id){
+        return userRepository.findById(id).orElseThrow().getStatus();
+    }
+
 }
