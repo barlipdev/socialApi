@@ -1,6 +1,5 @@
 package com.socialapp.api.controller;
 
-import com.socialapp.api.domain.LoginData;
 import com.socialapp.api.domain.User;
 import com.socialapp.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +27,15 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/users/register")
-    public String register(@RequestBody User user){
-        return userService.insertUser(user);
-    }
-
-    @GetMapping("/users/login/{email}&{password}")
-    public User login(@PathVariable String email, @PathVariable String password){
-        return userService.login(email,password);
-    }
+//    @PostMapping("/users/register")
+//    public String register(@RequestBody User user){
+//        return userService.insertUser(user);
+//    }
+//
+//    @GetMapping("/users/login/{email}&{password}")
+//    public User login(@PathVariable String email, @PathVariable String password){
+//        return userService.login(email,password);
+//    }
 
     @PostMapping("/users/friends/{id}&{idAdded}")
     public String addFriend(@PathVariable String id,@PathVariable String idAdded){

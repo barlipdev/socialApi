@@ -23,18 +23,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String insertUser(User user){
-        userRepository.insert(user);
-        return user.getId();
-    }
+//    public String insertUser(User user){
+//        userRepository.insert(user);
+//        return user.getId();
+//    }
 
     public User findUserById(String id){
         return userRepository.findById(id).orElseThrow();
     }
 
-    public User login(String email, String password){
-        return userRepository.findUserByEmailAndPassword(email,password).orElseThrow();
-    }
+//    public User login(String email, String password){
+//        return userRepository.findUserByEmailAndPassword(email,password).orElseThrow();
+//    }
 
     public List<User> findUserFriendsByUserId(String id){
         return userRepository.findById(id).orElseThrow().getFriendsList();
