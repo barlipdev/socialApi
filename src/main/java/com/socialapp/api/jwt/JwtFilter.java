@@ -36,11 +36,18 @@ public class JwtFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthenticationByToken(String header) {
 
+        StringBuffer stringBuffer = new StringBuffer(header);
+        for (int i=0;i<27;i++){
+            stringBuffer.deleteCharAt(stringBuffer.length()-1);
+        }
+        header = stringBuffer.toString();
+
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey("asffddfs$%&*".getBytes())
                 .parseClaimsJws(header.replace("Bearer ", ""));
 
         String email = claimsJws.getBody().get("email").toString();
         String password = claimsJws.getBody().get("password").toString();
+        String id = claimsJws.getBody().get("id").toString();
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                 = new UsernamePasswordAuthenticationToken(email, password);

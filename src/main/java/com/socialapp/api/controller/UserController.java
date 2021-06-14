@@ -27,16 +27,6 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-//    @PostMapping("/users/register")
-//    public String register(@RequestBody User user){
-//        return userService.insertUser(user);
-//    }
-//
-//    @GetMapping("/users/login/{email}&{password}")
-//    public User login(@PathVariable String email, @PathVariable String password){
-//        return userService.login(email,password);
-//    }
-
     @PostMapping("/users/friends/{id}&{idAdded}")
     public String addFriend(@PathVariable String id,@PathVariable String idAdded){
         return userService.addFriendToUserById(id,idAdded);
