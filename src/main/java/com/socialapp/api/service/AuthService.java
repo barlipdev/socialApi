@@ -30,7 +30,7 @@ public class AuthService {
                     .claim("password",user.getPassword())
                     .claim("id",findedUser.getId())
                     .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis()+ 200000))
+                    .setExpiration(new Date(System.currentTimeMillis()+ 20000000))
                     .signWith(SignatureAlgorithm.HS512,"asffddfs$%&*".getBytes())
                     .compact() + "UID"+findedUser.getId();
         }else{
