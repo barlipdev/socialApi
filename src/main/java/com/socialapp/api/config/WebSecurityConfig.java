@@ -10,8 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/users").authenticated()
-                .antMatchers("/users/friends").authenticated()
+        http.authorizeRequests().antMatchers("/users/*").authenticated()
                 .and().addFilter(new JwtFilter(authenticationManager())).csrf().disable();
     }
 
