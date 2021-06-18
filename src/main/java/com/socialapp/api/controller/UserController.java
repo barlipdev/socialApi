@@ -27,12 +27,12 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/friends")
+    @PostMapping("/users/friends")
     public String addFriend(@RequestParam("id") String id,@RequestParam("idAdded") String idAdded, Model model){
         return userService.addFriendToUserById(id,idAdded);
     }
 
-    @GetMapping("/friends/{id}")
+    @GetMapping("/users/friends/{id}")
     public List<User> getFriends(@PathVariable String id){
         return userService.findUserFriendsByUserId(id);
     }
