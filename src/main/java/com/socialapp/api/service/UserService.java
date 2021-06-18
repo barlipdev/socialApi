@@ -84,27 +84,26 @@ public class UserService {
         List<User> allUsers = userRepository.findAll();
         List<User> recentUsers = new ArrayList<>();
 
-        if (userFriendsList.size() > 0){
+        if (userFriendsList != null){
             userFriendsList.forEach(friend -> {
-                allUsers.forEach(user -> {
-                    if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
+                    allUsers.forEach(user -> {
+                        if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
                             recentUsers.forEach(recent -> {
                                 if (!recent.getId().equals(user.getId())){
                                     recentUsers.add(user);
                                 }
                             });
-                    }
-                });
+                        }
+                    });
             });
-            return recentUsers;
         }else{
             allUsers.forEach(user -> {
                if (recentUsers.size() <10 && !id.equals(user.getId())){
                    recentUsers.add(user);
                }
             });
-            return recentUsers;
         }
+        return recentUsers;
     }
 
     public String changeUserStatus(String id, String status){
