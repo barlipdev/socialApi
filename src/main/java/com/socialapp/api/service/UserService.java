@@ -23,18 +23,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-//    public String insertUser(User user){
-//        userRepository.insert(user);
-//        return user.getId();
-//    }
 
     public User findUserById(String id){
         return userRepository.findById(id).orElseThrow();
     }
 
-//    public User login(String email, String password){
-//        return userRepository.findUserByEmailAndPassword(email,password).orElseThrow();
-//    }
 
     public List<User> findUserFriendsByUserId(String id){
         return userRepository.findById(id).orElseThrow().getFriendsList();
@@ -91,7 +84,7 @@ public class UserService {
         List<User> allUsers = userRepository.findAll();
         List<User> recentUsers = new ArrayList<>();
 
-        if (userFriendsList != null){
+        if (userFriendsList.size() > 0){
             userFriendsList.forEach(friend -> {
                 allUsers.forEach(user -> {
                     if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
