@@ -84,7 +84,7 @@ public class UserService {
         List<User> allUsers = userRepository.findAll();
         List<User> recentUsers = new ArrayList<>();
 
-        if (userFriendsList != null){
+        if (userFriendsList != null && userFriendsList.size()>0){
             userFriendsList.forEach(friend -> {
                     allUsers.forEach(user -> {
                         if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
