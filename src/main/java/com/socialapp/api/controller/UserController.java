@@ -27,8 +27,8 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/friends/{id}&{idAdded}")
-    public String addFriend(@PathVariable String id,@PathVariable String idAdded){
+    @PostMapping("/friends")
+    public String addFriend(@RequestParam("id") String id,@RequestParam("idAdded") String idAdded, Model model){
         return userService.addFriendToUserById(id,idAdded);
     }
 
