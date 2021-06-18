@@ -19,10 +19,10 @@ public class User {
     private String name;
     private String surname;
     private String password;
-    private String status;
-    private Binary profileImage;
+    private String status = null;
+    private Binary profileImage = null;
     @DBRef
-    private List<User> friendsList;
+    private List<User> friendsList = null;
 
     public User() {
     }
