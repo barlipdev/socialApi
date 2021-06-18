@@ -88,11 +88,16 @@ public class UserService {
             userFriendsList.forEach(friend -> {
                 allUsers.forEach(user -> {
                     if (!friend.getId().equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
-                        recentUsers.forEach(recent -> {
-                            if (!recent.getId().equals(user.getId())){
-                                recentUsers.add(user);
-                            }
-                        });
+                        if (recentUsers.size() > 0){
+                            recentUsers.forEach(recent -> {
+                                if (!recent.getId().equals(user.getId())){
+                                    recentUsers.add(user);
+                                }
+                            });
+                        }else{
+                            recentUsers.add(user);
+                        }
+
                     }
                 });
             });
