@@ -38,6 +38,7 @@ public class User {
         this.friendsList = friendsList;
     }
 
+
     public User(String email, String name, String surname, String password, String status, Binary profileImage, List<User> friendsList) {
         this.email = email;
         this.name = name;
