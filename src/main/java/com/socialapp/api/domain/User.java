@@ -27,13 +27,12 @@ public class User {
     private String password;
     private String status;
     private Binary profileImage;
-    @DBRef
-    private List<User> friendsList;
+    private List<String> friendsList;
 
     public User() {
     }
 
-    public User(String id, String email, String name, String surname, String password, String status, List<User> friendsList) throws IOException {
+    public User(String id, String email, String name, String surname, String password, String status, List<String> friendsList) throws IOException {
         URL imageURL = new URL("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png");
         BufferedImage originalImage= ImageIO.read(imageURL);
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
@@ -49,7 +48,7 @@ public class User {
     }
 
 
-    public User(String email, String name, String surname, String password, String status, List<User> friendsList) throws IOException {
+    public User(String email, String name, String surname, String password, String status, List<String> friendsList) throws IOException {
         URL imageURL = new URL("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png");
         BufferedImage originalImage= ImageIO.read(imageURL);
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
@@ -115,11 +114,11 @@ public class User {
         this.profileImage = profileImage;
     }
 
-    public List<User> getFriendsList() {
+    public List<String> getFriendsList() {
         return friendsList;
     }
 
-    public void setFriendsList(List<User> friendsList) {
+    public void setFriendsList(List<String> friendsList) {
         this.friendsList = friendsList;
     }
 }

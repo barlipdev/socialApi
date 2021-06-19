@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/users/friends/{id}")
-    public List<User> getFriends(@PathVariable String id){
+    public List<String> getFriends(@PathVariable String id){
         return userService.findUserFriendsByUserId(id);
     }
 
