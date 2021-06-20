@@ -29,8 +29,13 @@ public class UserService {
     }
 
 
-    public List<String> findUserFriendsByUserId(String id){
-        return userRepository.findById(id).orElseThrow().getFriendsList();
+    public List<User> findUserFriendsByUserId(String id){
+        List<String> userFriendsUIDList = userRepository.findById(id).orElseThrow().getFriendsList();
+        List<User> userFriendList = new ArrayList<>();
+
+        userFriendsUIDList.forEach( friend -> userFriendList.add(userRepository.findById(friend).orElseThrow()));
+
+        return userFriendList;
     }
 
     public String addFriendToUserById(String id, String idAddedUser){
@@ -80,27 +85,25 @@ public class UserService {
     }
 
     public List<User> findRecentUsers(String id){
-        List<String> userFriendsList = findUserFriendsByUserId(id);
+        List<String> userFriendsList = findUserById(id).getFriendsList();
         List<User> allUsers = userRepository.findAll();
         List<User> recentUsers = new ArrayList<>();
 
         if (userFriendsList != null && userFriendsList.size()>0){
-            userFriendsList.forEach(friend -> {
-                    allUsers.forEach(user -> {
-                        if (!friend.equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
-                            if (recentUsers.size() > 0){
-                                recentUsers.forEach(recent -> {
-                                    if (!recent.getId().equals(user.getId())){
-                                        recentUsers.add(user);
-                                    }
-                                });
+            userFriendsList.forEach(friend -> allUsers.forEach(user -> {
+                if (!friend.equals(user.getId())&& recentUsers.size() < 10 && !id.equals(user.getId())){
+                    if (recentUsers.size() > 0){
+                        recentUsers.forEach(recent -> {
+                            if (!recent.getId().equals(user.getId())){
+                                recentUsers.add(user);
                             }
-                           else{
-                               recentUsers.add(user);
-                            }
-                        }
-                    });
-            });
+                        });
+                    }
+                   else{
+                       recentUsers.add(user);
+                    }
+                }
+            }));
         }else{
             allUsers.forEach(user -> {
                if (recentUsers.size() <10 && !id.equals(user.getId())){
