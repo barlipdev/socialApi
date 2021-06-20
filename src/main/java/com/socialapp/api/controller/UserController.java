@@ -71,8 +71,8 @@ public class UserController {
         return userService.changeUserStatus(id,status);
     }
 
-    @GetMapping("/users/status")
-    public String getUserStatus(@RequestParam("id")String id){
+    @GetMapping("/users/status/{id}")
+    public String getUserStatus(@PathVariable String id){
         return userService.getUserStatus(id);
     }
 }
